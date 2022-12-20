@@ -1,0 +1,2004 @@
+{
+    "metadata": {
+        "title": "WDV PhD PISF network",
+        "description": "PISF hydrossustainable economimic model teste alteração",
+        "minimum_version": "1.1"
+    },
+    "timestepper": {
+        "start": "1941-01-30",
+        "end": "2021-06-30",
+        "comment": "mean monthly flow",
+        "timestep": "M"
+    },
+    "solver": {
+        "name": "glpk-edge"
+    },
+    "nodes": [
+        {
+            "name": "Q1in",
+            "comment": "discharge in sobradinho reservoir",
+            "type": "catchment",
+            "flow": {
+                "type": "dataframe",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/qin_vday_day.csv",
+                "index_col": "date",
+                "parse_dates": true,
+                "column": "Q1in"
+            }
+        },
+        {
+            "name": "Q2in",
+            "comment": "discharge in sobradinho reservoir",
+            "type": "catchment",
+            "flow": {
+                "type": "dataframe",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/qin_vday_day.csv",
+                "index_col": "date",
+                "parse_dates": true,
+                "column": "Q2in"
+            }
+        },
+        {
+            "name": "Q3in",
+            "comment": "discharge in sobradinho reservoir",
+            "type": "catchment",
+            "flow": {
+                "type": "dataframe",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/qin_vday_day.csv",
+                "index_col": "date",
+                "parse_dates": true,
+                "column": "Q3in"
+            }
+        },
+        {
+            "name": "Q4in",
+            "comment": "discharge in sobradinho reservoir",
+            "type": "catchment",
+            "flow": {
+                "type": "dataframe",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/qin_vday_day.csv",
+                "index_col": "date",
+                "parse_dates": true,
+                "column": "Q4in"
+            }
+        },
+        {
+            "name": "Q5in",
+            "comment": "discharge in sobradinho reservoir",
+            "type": "catchment",
+            "flow": {
+                "type": "dataframe",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/qin_vday_day.csv",
+                "index_col": "date",
+                "parse_dates": true,
+                "column": "Q5in"
+            }
+        },
+        {
+            "name": "sobradinho_balance",
+            "comment": "water balance before reservoir",
+            "type": "link"
+        },
+        {
+            "name": "sobradinho_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "sobradinho_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "sobradinho_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_sirrigation",
+            "comment": "sobradinho hidroeconomic irrigation link",
+            "type": "piecewiselink",
+            "costs": [-1113207.5,-111320754.7,-222641509.4,-333962264.2,-445283018.9,-556603773.6,-667924528.3,-779245283.0,-890566037.7,-1001886792.5,-1113207547.2],
+            "max_flows": [0.0,1598400.0,3196800.0,4795200.0,6393600.0,7992000.0,9590400.0,11188800.0,12787200.0,14385600.0,19392457.6],
+            "nsteps": 11
+        },
+        {
+            "name": "sobradinho_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "sobradinho_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "sobradinho_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_surban",
+            "comment": "sobradinho hidroeconomic irrigation link",
+            "type": "piecewiselink",
+            "costs": [-140.7,-14073.2,-28146.4,-42219.7,-56292.9,-70366.1,-84439.3,-98512.5,-112585.7,-126659.0,-142139.5],
+            "max_flows": [0.0,21427.2,42854.4,64281.6,85708.8,107136.0,128563.2,149990.4,171417.6,192844.8,259369.1],
+            "nsteps": 11
+        },        
+        {
+            "name": "sobradinho_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "sobradinho_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "sobradinho_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_sothers",
+            "comment": "sobradinho hidroeconomic irrigation link",
+            "type": "piecewiselink",
+            "costs": [-974056.6,-97405660.4,-194811320.8,-292216981.1,-389622641.5,-487028301.9,-584433962.3,-681839622.6,-779245283.0,-876650943.4,-983797169.8],
+            "max_flows": [0.0,86.4,172.8,259.2,345.6,432.0,518.4,604.8,691.2,777.6,1065.44],
+            "nsteps": 11
+        },
+        {
+            "name": "sobradinho_eto",
+            "comment": "reservoir evaporation",
+            "type": "Output",
+            "min_flow": 2957330.24,
+            "max_flow": "sobradinho_evaporation",
+            "cost": -90800000000
+        },
+        {
+            "name": "sobradinho_reservoir",
+            "type": "storage",
+            "min_volume": 5447000000,
+            "max_volume": 34116000000,
+            "initial_volume": 32116000000,
+            "cost": -100        
+        },
+        {
+            "name": "sobradinho_spill",
+            "type": "link",
+            "min_flow": 0,
+            "max_flow": 2073600000,
+            "cost": -10
+        },
+        {
+            "name": "sobradinho_spill_limit",
+            "type": "link",
+            "max_flow": 2073600000
+        },
+        {
+            "name": "sobradinho_turbine",
+            "comment": "turbine",
+            "type": "link",
+            "min_flow": 0,
+            "max_flow": "sobradinho_discharge",
+            "cost": -799
+        },
+        {
+            "name": "eco_sturbine",
+            "comment": "sobradinho turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-35805.75, -7771448.09, -10740487.55, -14613195.81, -18915053.70, -21871798.57, -24410108.01, -26851118.81],
+            "max_flows": [0, 619130000, 123220000, 185840000, 247823700, 309787200, 371680000, 372690000],
+            "nsteps": 8
+        },       
+        {
+            "name": "sobradinho_downElevation",
+            "comment": "downstream water level",
+            "type": "link",
+            "max_flow": 1928000000,
+            "cost": 10
+        }, 
+        {
+            "name": "upnorth_balance",
+            "comment": "water balance before north abstraction",
+            "type": "link"
+        },
+		{
+            "name": "upnorth_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upnorte_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upnorte_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upnorth_irrigation",
+            "comment": "sobradinho turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-43962.3,-4396226.4,-8792452.8,-13188679.2,-17584905.7,-21981132.1,-26377358.5,-30773584.9,-35169811.3,-39566037.7,-44401886.8],
+            "max_flows": [0.0,1546560.0,3093120.0,4639680.0,6186240.0,7732800.0,9279360.0,10825920.0,12372480.0,13919040.0,18813376],
+            "nsteps": 11
+        },   
+        {
+            "name": "upnorth_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upnorte_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upnorte_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upnorth_urban",
+            "comment": "sobradinho turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-2296.6,-229661.7,-459323.3,-688985.0,-918646.6,-1148308.3,-1377969.9,-1607631.6,-1837293.2,-2066954.9,-2319582.7],
+            "max_flows": [0.0,190080.0,380160.0,570240.0,760320.0,950400.0,1140480.0,1330560.0,1520640.0,1710720.0,2309968],
+            "nsteps": 11
+        },   
+        {
+            "name": "upnorth_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upnorte_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upnorte_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upnorth_others",
+            "comment": "sobradinho turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-257362.4,-25736242.1,-51472484.3,-77208726.4,-102944968.6,-128681210.7,-154417452.8,-180153695.0,-205889937.1,-231626179.2,-259936045.6],
+            "max_flows": [0.0,172800.0,345600.0,518400.0,691200.0,864000.0,1036800.0,1209600.0,1382400.0,1555200.0,2091880]  ,
+            "nsteps": 11
+        },   
+        {
+            "name": "north_abstraction",
+            "comment": "north transposition abstraction",
+            "type": "link"
+        },
+        {
+            "name": "north_link",
+            "comment": "pump station limit",
+            "type": "piecewiselink",
+            "costs": [0,1264683.68,2529367.36,3161709.20,3794051.04,4426392.88,5058734.72,5691076.56,6007247.48,6386652.58],
+            "max_flows": [0,1710720,3421440,4276800,5132160,5987520,6842880,7698240,8125920,8639136],
+            "nsteps": 10
+        },
+		{
+			"name": "north_Ereservoir",
+			"comment": "equivalent north reservoir",
+			"type": "storage",
+			"min_volume": 30000000,
+            "max_volume": 675000000,
+            "initial_volume": 30000000
+		},
+        {
+            "name": "eco_north_irrigation",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-273246.7,-27324665.1,-54649330.2,-81973995.3,-109298660.4,-136623325.5,-163947990.6,-191272655.7,-218597320.8,-245921985.8,-275979117.5],
+            "max_flows": [0.0,182044.8,364089.6,546134.4,728179.2,910224.0,1092268.8,1274313.6,1456358.4,1638403.2,4502304],
+            "nsteps": 11
+        },
+		{
+            "name": "north_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "norte_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "norte_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_north_urban",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-17937.9,-1793787.1,-3587574.3,-5381361.4,-7175148.5,-8968935.7,-10762722.8,-12556509.9,-14350297.1,-16144084.2,-18117250.0],
+            "max_flows": [0.0,43200.0,86400.0,129600.0,172800.0,216000.0,259200.0,302400.0,490210,865435,1626912],
+            "nsteps": 11
+        },
+        {
+            "name": "north_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "norte_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "norte_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_north_others",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-1061351.9,-106135188.7,-212270377.4,-318405566.0,-424540754.7,-530675943.4,-636811132.1,-742946320.8,-849081509.4,-955216698.1,-1071965405.7],
+            "max_flows": [0.0,195264.0,390528.0,585792.0,781056.0,976320.0,1171584.0,1366848.0,1562112.0,1757376.0,1972166.4],
+            "nsteps": 11
+        },
+        {
+            "name": "north_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "norte_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "norte_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "upeast_balance",
+            "comment": "water balance before east abstraction",
+            "type": "link"
+        },
+		{
+            "name": "upeast_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upleste_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upleste_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upeast_irrigation",
+            "comment": "up east irrigation hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-43962.3,-4396226.4,-8792452.8,-13188679.2,-17584905.7,-21981132.1,-26377358.5,-30773584.9,-35169811.3,-39566037.7,-44401886.8],
+            "max_flows": [0.0,70416.0,140832.0,211248.0,281664.0,352080.0,422496.0,492912.0,563328.0,633744.0,853033.6],
+            "nsteps": 11
+        },   
+        {
+            "name": "upeast_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upleste_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upleste_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upeast_urban",
+            "comment": "up east urban hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-48.4,-4840.4,-9680.8,-14521.3,-19361.7,-24202.1,-29042.5,-33883.0,-38723.4,-43563.8,-48888.3],
+            "max_flows": [0.0,12268.8,24537.6,36806.4,49075.2,61344.0,73612.8,85881.6,98150.4,110419.2,149452.4],
+            "nsteps": 11
+        },
+        {
+            "name": "upeast_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "upleste_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "upleste_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_upeast_others",
+            "comment": "up east others hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-257362.4,-25736242.1,-51472484.3,-77208726.4,-102944968.6,-128681210.7,-154417452.8,-180153695.0,-205889937.1,-231626179.2,-259936045.6],
+            "max_flows": [0.0,86.4,172.8,259.2,345.6,432.0,518.4,604.8,691.2,777.6,1145.44],
+            "nsteps": 11
+        },
+        {
+            "name": "east_abstraction",
+            "comment": "east transposition abstract",
+            "type": "link"
+        },
+        {
+            "name": "east_link",
+            "comment": "pump station limit",
+            "type": "piecewiselink",
+            "costs": [0.00,652486.37,1304972.75,1631215.94,1957459.12,2283702.31,2609945.50,2936188.68,3099310.28,3225686.59],
+            "max_flows": [0,449280,898560,1123200,1347840,1572480,1797120,2021760,2134080,2268864],
+            "nsteps": 10
+        },
+		{
+			"name": "east_Ereservoir",
+			"comment": "equivalent north reservoir",
+			"type": "storage",
+			"min_volume": 1000000,
+            "max_volume": 37940000,
+            "initial_volume": 15000000
+		},
+        {
+            "name": "eco_east_irrigation",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-44208.8,-4420880.5,-8841761.0,-13262641.5,-17683522.0,-22104402.5,-26525283.0,-30946163.5,-35367044.0,-39787924.5,-44650893.1],
+            "max_flows": [0.0,13046.4,26092.8,39139.2,52185.6,65232.0,78278.4,91324.8,104371.2,362080,723168],
+            "nsteps": 11
+        },
+		{
+            "name": "east_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "leste_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "leste_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_east_urban",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-9536.4,-953635.5,-1907271.0,-2860906.5,-3814541.9,-4768177.4,-5721812.9,-6675448.4,-7629083.9,-8582719.4,-9631718.4],
+            "max_flows": [0.0,17193.6,34387.2,51580.8,68774.4,85968.0,103161.6,120355.2,137548.8,303250,607528],
+            "nsteps": 11
+        },
+        {
+            "name": "east_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "leste_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "leste_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_east_others",
+            "comment": "north hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-171309.1,-17130911.9,-34261823.9,-51392735.8,-68523647.8,-85654559.7,-102785471.7,-119916383.6,-137047295.6,-154178207.5,-173022210.7],
+            "max_flows": [0.0,100,300,600,900,2500,6211,12423,124234,248468,496936],
+            "nsteps": 11
+        },
+        {
+            "name": "east_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "leste_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "leste_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "itaparica_reservoir",
+            "type": "storage",
+            "min_volume": 7234000000,
+            "max_volume": 10782000000,
+            "initial_volume": 9000000000        
+        },
+		{
+		    "name": "itaparica_eto",
+            "comment": "reservoir evaporation",
+            "type": "Output",
+            "min_flow": 1614351.34,
+            "max_flow": "itaparica_evaporation",
+            "cost": -20531932500.0
+        },
+        {
+            "name": "itaparica_spill",
+            "type": "link",
+            "max_flow": 2073600000,
+            "cost": -10
+        },
+        {
+            "name": "itaparica_turbine",
+            "comment": "turbine",
+            "type": "link",
+            "min_flow": 0,
+            "max_flow": "itaparica_discharge",
+            "cost": -799
+        },
+        {
+            "name": "eco_itaparica_turbine",
+            "comment": "Itaparica turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-32347.80, -4850958.19, -11315419.44, -16162177.59, -21005079.62, -27459294.64, -32300891.53, -35530980.68],
+            "max_flows": [0, 40242440, 79759296, 119638540, 159518390, 199398240, 239277080, 240279000],
+            "nsteps": 8
+        },
+        {
+            "name": "itaparica_downElevation",
+            "comment": "downstream water level",
+            "type": "link"
+        },
+        {
+            "name": "pafonso_balance",
+            "comment": "upstream paulo afonso reservoir balance",
+            "type": "link"
+        },
+		{
+            "name": "pafonso_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "pafonso_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "pafonso_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_pafonso_irrigation",
+            "comment": "pafonso irrigation hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-43962.3,-4396226.4,-8792452.8,-13188679.2,-17584905.7,-21981132.1,-26377358.5,-30773584.9,-35169811.3,-39566037.7,-44401886.8],
+            "max_flows": [0.0,397612.8,795225.6,1192838.4,1590451.2,1988064.0,2385676.8,2783289.6,3180902.4,3578515.2,4821114.88],
+            "nsteps": 11
+        },
+        {
+            "name": "pafonso_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "pafonso_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "pafonso_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_pafonso_urban",
+            "comment": "pafonso urban hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-707.2,-70717.6,-141435.2,-212152.9,-282870.5,-353588.1,-424305.7,-495023.4,-565741.0,-636458.6,-714248.0],
+            "max_flows": [0.0,52963.2,105926.4,158889.6,211852.8,264816.0,317779.2,370742.4,423705.6,476668.8,641854.72],
+            "nsteps": 11
+        },
+        {
+            "name": "pafonso_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "pafonso_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "pafonso_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_pafonso_others",
+            "comment": "pafonso others hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-257362.4,-25736242.1,-51472484.3,-77208726.4,-102944968.6,-128681210.7,-154417452.8,-180153695.0,-205889937.1,-231626179.2,-259936045.6],
+            "max_flows": [0.0,41558.4,83116.8,124675.2,166233.6,207792.0,249350.4,290908.8,332467.2,374025.6,512856.64],
+            "nsteps": 11
+        },
+        {
+            "name": "pafonso_eto",
+            "comment": "reservoir evaporation",
+            "type": "Output",
+            "min_flow": 565250,
+            "max_flow": "pafonso_evaporation",
+            "cost": -20531932500.0
+        },
+        {
+            "name": "pafonso_reservoir",
+            "type": "storage",
+            "min_volume": 1300000000,
+            "max_volume": 1353000000,
+            "initial_volume": 1345000000           
+        },
+        {
+            "name": "pafonso_spill",
+            "type": "link",
+            "max_flow": 2073600000,
+            "cost": -10
+        },
+        {
+            "name": "pafonso_turbine",
+            "comment": "turbine",
+            "type": "link",
+            "min_flow": 0,
+            "max_flow": "pafonso_discharge",
+            "cost": -799
+        },
+        {
+            "name": "eco_pafonso_turbine",
+            "comment": "pafonso turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-129128.93, -38299342.19, -50895380.27, -82050360.85, -107217121.90, -119794237.79, -126079901.28, -138687891.41],
+            "max_flows": [0, 79539520, 118679040, 178018560, 237358080, 296697600, 312143328, 366508800],
+            "nsteps": 8
+        },
+        {
+            "name": "pafonso_downElevation",
+            "comment": "downstream water level",
+            "type": "link",
+            "max_flow": 1728000000,
+            "cost": 10
+        },
+        {
+            "name": "xingo_balance",
+            "comment": "water balance before xingo reservoir ",
+            "type": "link"
+        },
+		{
+            "name": "xingo_irrigation",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_irrigation"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_irrigation"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_xingo_irrigation",
+            "comment": "xingo irrigation hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-43962.3,-4396226.4,-8792452.8,-13188679.2,-17584905.7,-21981132.1,-26377358.5,-30773584.9,-35169811.3,-39566037.7,-44401886.8],
+            "max_flows": [0.0,39830.4,79660.8,119491.2,159321.6,199152.0,238982.4,278812.8,318643.2,358473.6,483947.84],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_urban",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_urban"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_urban"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_xingo_urban",
+            "comment": "xingo urban hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-262.0,-26202.1,-52404.2,-78606.3,-104808.4,-131010.5,-157212.6,-183414.7,-209616.8,-235818.9,-264641.2],
+            "max_flows": [0.0,5702.4,11404.8,17107.2,22809.6,28512.0,34214.4,39916.8,45619.2,51321.6,69999.04],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_others",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_others"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_others"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_xingo_others",
+            "comment": "xingo others hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-257362.4,-25736242.1,-51472484.3,-77208726.4,-102944968.6,-128681210.7,-154417452.8,-180153695.0,-205889937.1,-231626179.2,-259936045.6],
+            "max_flows": [0.0,172.8,345.6,518.4,691.2,864.0,1036.8,1209.6,1382.4,1555.2,2190.88],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_eto",
+            "comment": "reservoir evaporation",
+            "type": "Output",
+            "min_flow": 152950,
+            "max_flow": "xingo_evaporation",
+            "cost": -20531932500
+        },
+        {
+            "name": "xingo_reservoir",
+            "type": "storage",
+            "min_volume": 3700000000,
+            "max_volume": 3800000000,
+            "initial_volume": 3750000000           
+        },
+        {
+            "name": "xingo_spill",
+            "type": "link",
+            "max_flow": 2073600000,
+            "cost": -10
+        },
+        {
+            "name": "xingo_turbine",
+            "comment": "turbine",
+            "type": "link",
+            "min_flow": 0,
+            "max_flow": "xingo_discharge",
+            "cost": -799
+        },
+        {
+            "name": "eco_xingo_turbine",
+            "comment": "xingo turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-77108.66, -15401154.11, -30747281.67, -42242678.07, -57518057.60, -68969952.28, -76603795.21, -84264174.73],
+            "max_flows": [0, 43632000, 87264000, 130896000, 174528000, 218160000, 261792000, 262600000],
+            "nsteps": 8
+        },
+        {
+            "name": "xingo_downElevation",
+            "comment": "downstream water level",
+            "type": "link",
+            "max_flow": 2000000000
+        },
+        {
+            "name": "xingo_irrigation_downstream",
+            "comment": "output for irrigation",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_irrigation_downstream"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_irrigation_downstream"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_downst_irrigation",
+            "comment": "xingo turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-101034.6,-10103459.1,-20206918.2,-30310377.4,-40413836.5,-50517295.6,-60620754.7,-70724213.8,-80827673.0,-90931132.1,-102044937.1],
+            "max_flows": [0.0,234829.9,469659.8,704489.7,939319.6,1174149.5,1408979.4,1643809.3,1878639.2,2113469.1,2861441.73],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_urban_downstream",
+            "comment": "output for urban supply",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_urban_downstream"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_urban_downstream"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_downst_urban",
+            "comment": "xingo turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-5496.4,-549638.4,-1099276.9,-1648915.3,-2198553.8,-2748192.2,-3297830.7,-3847469.1,-4397107.6,-4946746.0,-5551348.3],
+            "max_flows": [0.0,80353.4,160706.8,241060.3,321413.7,401767.1,482120.5,562474.0,642827.4,723180.8,982276.41],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_others_downstream",
+            "comment": "output for others users",
+            "type": "Output",
+            "max_flow": {
+                "type":"constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "max_flow",
+                "index": [1, "xingo_others_downstream"],
+                "index_col": ["level", "node"]        
+            },
+            "cost": {
+                "type": "constant",
+                "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/data/demand_vday_scenarios.csv",
+                "column": "cost",
+                "index": [1, "xingo_others_downstream"],
+                "index_col": ["level", "node"]
+            }
+        },
+        {
+            "name": "eco_downst_others",
+            "comment": "xingo turbine hidroeconomic link",
+            "type": "piecewiselink",
+            "costs": [-361520.4,-36152044.0,-72304088.1,-108456132.1,-144608176.1,-180760220.1,-216912264.2,-253064308.2,-289216352.2,-325368396.2,-365135644.7],
+            "max_flows": [0.0,2612.9,5225.8,7838.8,10451.7,13064.6,15677.5,18290.4,20903.3,23516.3,32616.3078],
+            "nsteps": 11
+        },
+        {
+            "name": "xingo_downstream_balance",
+            "comment": "water demand for dowstream xingo resevoir",
+            "type": "link"
+        },       
+        {
+            "name": "xingo_dreno",
+            "comment": "dreno",
+            "type": "piecewiselink",
+            "costs": [-8055979117.5,-4055979117.5,100,2000],
+            "max_flows": [52704000,69206400,103680000,2160000000],
+            "nsteps": 4
+        },
+        {
+            "name": "xingo_end",
+            "comment": "dreno",
+            "type": "Output",
+            "max_flow": 2296000000,
+            "cost": 100
+        }
+    ],
+    "edges": [
+        [
+            "Q1in",
+            "sobradinho_balance"
+        ],
+        [
+            "sobradinho_balance",
+            "eco_sirrigation"
+        ],
+        [
+            "eco_sirrigation",
+            "sobradinho_irrigation"
+        ],
+        [
+            "sobradinho_balance",
+            "eco_surban"
+        ],
+        [
+            "eco_surban",
+            "sobradinho_urban"
+        ],
+        [
+            "sobradinho_balance",
+            "eco_sothers"
+        ],
+        [
+            "eco_sothers",
+            "sobradinho_others"
+        ],
+        [
+            "sobradinho_balance",
+            "sobradinho_reservoir"
+        ],
+        [
+            "sobradinho_reservoir",
+            "sobradinho_eto"
+        ],
+        [
+            "sobradinho_reservoir",
+            "sobradinho_turbine"
+        ],
+        [
+            "sobradinho_turbine",
+            "eco_sturbine"
+        ],
+        [
+            "sobradinho_reservoir",
+            "sobradinho_spill"
+        ],
+        [
+            "eco_sturbine",
+            "sobradinho_downElevation"
+        ],
+        [
+            "sobradinho_spill",
+            "sobradinho_spill_limit"
+        ],
+        [
+            "sobradinho_spill_limit",
+            "sobradinho_downElevation"
+        ],
+        [
+            "sobradinho_downElevation",
+            "upnorth_balance"
+        ],
+        [
+            "Q2in",
+            "upnorth_balance"
+        ],
+        [
+            "upnorth_balance",
+            "eco_upnorth_irrigation"
+        ],
+        [
+            "eco_upnorth_irrigation",
+            "upnorth_irrigation"
+        ],
+        [
+            "upnorth_balance",
+            "eco_upnorth_urban"
+        ],
+        [
+            "eco_upnorth_urban",
+            "upnorth_urban"
+        ],
+        [
+            "upnorth_balance",
+            "eco_upnorth_others"
+        ],
+        [
+            "eco_upnorth_others",
+            "upnorth_others"
+        ],
+        [
+            "upnorth_balance",
+            "north_abstraction"
+        ],
+        [
+            "north_abstraction",
+            "north_link"
+        ],
+        [
+            "north_link",
+            "north_Ereservoir"
+        ],
+        [
+            "north_Ereservoir",
+            "eco_north_irrigation"
+        ],
+        [
+            "eco_north_irrigation",
+            "north_irrigation"
+        ],
+        [
+            "north_Ereservoir",
+            "eco_north_urban"
+        ],
+        [
+            "eco_north_urban",
+            "north_urban"
+        ],
+        [
+            "north_Ereservoir",
+            "eco_north_others"
+        ],
+        [
+            "eco_north_others",
+            "north_others"
+        ],
+        [
+            "north_abstraction",
+            "upeast_balance"
+        ],
+        [
+            "Q3in",
+            "upeast_balance"
+        ],
+        [
+            "upeast_balance",
+            "eco_upeast_irrigation"
+        ],
+        [
+            "eco_upeast_irrigation",
+            "upeast_irrigation"
+        ],
+        [
+            "upeast_balance",
+            "eco_upeast_urban"
+        ],
+        [
+            "eco_upeast_urban",
+            "upeast_urban"
+        ],
+        [
+            "upeast_balance",
+            "eco_upeast_others"
+        ],
+        [
+            "eco_upeast_others",
+            "upeast_others"
+        ],
+        [
+            "upeast_balance",
+            "east_abstraction"
+        ],
+        [
+            "east_abstraction",
+            "east_link"
+        ],
+        [
+            "east_link",
+            "east_Ereservoir"
+        ],
+        [
+            "east_Ereservoir",
+            "eco_east_irrigation"
+        ],
+        [
+            "eco_east_irrigation",
+            "east_irrigation"
+        ],
+        [
+            "east_Ereservoir",
+            "eco_east_urban"
+        ],
+        [
+            "eco_east_urban",
+            "east_urban"
+        ],
+        [
+            "east_Ereservoir",
+            "eco_east_others"
+        ],
+        [
+            "eco_east_others",
+            "east_others"
+        ],
+        [
+            "east_abstraction",
+            "itaparica_reservoir"
+        ],
+        [
+            "itaparica_reservoir",
+            "itaparica_eto"
+        ],
+        [
+            "itaparica_reservoir",
+            "itaparica_turbine"
+        ],
+        [
+            "itaparica_reservoir",
+            "itaparica_spill"
+        ],
+        [
+            "itaparica_turbine",
+            "eco_itaparica_turbine"
+        ],
+        [
+            "eco_itaparica_turbine",
+            "itaparica_downElevation"
+        ],
+        [
+            "itaparica_spill",
+            "itaparica_downElevation"
+        ],
+        [
+            "itaparica_downElevation",
+            "pafonso_balance"
+        ],
+        [
+            "Q4in",
+            "pafonso_balance"
+        ],
+        [
+            "pafonso_balance",
+            "eco_pafonso_irrigation"
+        ],
+        [
+            "eco_pafonso_irrigation",
+            "pafonso_irrigation"
+        ],
+        [
+            "pafonso_balance",
+            "eco_pafonso_urban"
+        ],
+        [
+            "eco_pafonso_urban",
+            "pafonso_urban"
+        ],
+        [
+            "pafonso_balance",
+            "eco_pafonso_others"
+        ],
+        [
+            "eco_pafonso_others",
+            "pafonso_others"
+        ],
+        [
+            "pafonso_balance",
+            "pafonso_reservoir"
+        ],
+        [
+            "pafonso_reservoir",
+            "pafonso_eto"
+        ],
+        [
+            "pafonso_reservoir",
+            "pafonso_turbine"
+        ],
+        [
+            "pafonso_reservoir",
+            "pafonso_spill"
+        ],
+        [
+            "pafonso_turbine",
+            "eco_pafonso_turbine"
+        ],
+        [
+            "eco_pafonso_turbine",
+            "pafonso_downElevation"
+        ],
+        [
+            "pafonso_spill",
+            "pafonso_downElevation"
+        ],
+        [
+            "pafonso_downElevation",
+            "xingo_balance"
+        ],
+        [
+            "Q5in",
+            "xingo_balance"
+        ],
+        [
+            "xingo_balance",
+            "eco_xingo_irrigation"
+        ],
+        [
+            "eco_xingo_irrigation",
+            "xingo_irrigation"
+        ],
+        [
+            "xingo_balance",
+            "eco_xingo_urban"
+        ],
+        [
+            "eco_xingo_urban",
+            "xingo_urban"
+        ],
+        [
+            "xingo_balance",
+            "eco_xingo_others"
+        ],
+        [
+            "eco_xingo_others",
+            "xingo_others"
+        ],
+        [
+            "xingo_balance",
+            "xingo_reservoir"
+        ],
+        [
+            "xingo_reservoir",
+            "xingo_eto"
+        ],
+        [
+            "xingo_reservoir",
+            "xingo_turbine"
+        ],
+        [
+            "xingo_reservoir",
+            "xingo_spill"
+        ],
+        [
+            "xingo_turbine",
+            "eco_xingo_turbine"
+        ],
+        [
+            "eco_xingo_turbine",
+            "xingo_downElevation"
+        ],
+        [
+            "xingo_spill",
+            "xingo_downElevation"
+        ],
+        [
+            "xingo_downElevation",
+            "xingo_downstream_balance"
+        ],
+        [
+            "xingo_downstream_balance",
+            "eco_downst_irrigation"
+        ],
+        [
+            "eco_downst_irrigation",
+            "xingo_irrigation_downstream"
+        ],
+        [
+            "xingo_downstream_balance",
+            "eco_downst_urban"
+        ],
+        [
+            "eco_downst_urban",
+            "xingo_urban_downstream"
+        ],
+        [
+            "xingo_downstream_balance",
+            "eco_downst_others"
+        ],
+        [
+            "eco_downst_others",
+            "xingo_others_downstream"
+        ],
+        [
+            "xingo_downstream_balance",
+            "xingo_dreno"
+        ],
+        [
+            "xingo_dreno",
+            "xingo_end"
+        ]   
+    ],
+    "parameters": {
+        "sobradinho_level": {
+            "type": "interpolatedvolume",
+            "node": "sobradinho_reservoir",
+            "volumes": [
+                5446000000,
+                12614250000,
+                19781500000,
+                26948750000,
+                34116000000,
+                37000000000
+                ],
+            "values": [
+                380.37,
+                385.35,
+                388.35,
+                390.54,
+                392.51,
+                393.50
+                ],
+            "kind": "cubic"
+            },
+            "sobradinho_area": {
+                "type": "interpolatedvolume",
+                "node": "sobradinho_reservoir",
+                "volumes": [ 5446000000, 12614250000, 19781500000, 26948750000, 34116000000, 37000000000],
+                "values": [1128752000, 2007893000, 2787032000, 3482549000, 4214000000, 4215000000],
+                "interp_kwargs": {  
+                    "kind": "linear"
+                  }
+            },
+            "sobradinho_eto_profile": {
+                "type": "monthlyprofile",
+                "comment": "evaporation in mm",
+                "values": [3.88, 3.48, 2.662, 4.34, 5.03, 4.66, 5.19, 5.95, 6.47, 6.21, 3.74, 3.22]
+            },
+            "sobradinho_evaporation": {
+                "type": "aggregated",
+                "agg_func": "product",
+                "parameters": [
+                    "sobradinho_area",
+                    "sobradinho_eto_profile",
+                    0.001
+                ]
+            },
+        "sobradinho_water_level": {
+            "type": "InterpolatedFlowParameter",
+            "node": "sobradinho_downElevation",
+            "flows": [
+                0,
+                1000000,
+                1900800,
+                8380800,
+                12960000,
+                17280000,
+                21608800,
+                2592000000
+                ],
+            "values": [
+                -368.60,
+                -368.65,
+                -369.08,
+                -370.30,
+                -371.62,
+                -372.53,
+                -373.00,
+                -375.00
+                ],
+            "kind": "linear"
+            },
+        "sobradinho_new_level": {
+            "type": "aggregated",
+            "agg_func": "sum",
+            "parameters": [
+                "sobradinho_level",
+                "sobradinho_water_level"
+                ]
+            },
+        "sobradinho_discharge": {
+            "type": "indexedarray",
+            "index_parameter": "sobradinho_control",
+            "params": [
+                369000000,
+                368000000,
+                306720000,
+                245370000,
+                184000000,
+                122000000,
+                613000000,
+                0
+                ]
+            },
+        "sobradinho_control": {
+            "type": "controlcurveindex",
+            "storage_node": "sobradinho_reservoir",
+            "control_curves": [
+                "sobradinho_control_curve"
+                ]
+            },
+        "sobradinho_control_curve": {
+            "type": "monthlyprofile",
+            "values": [
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94,
+                0.94
+                ]
+            },
+            "itaparica_level": {
+                "type": "interpolatedvolume",
+                "node": "itaparica_reservoir",
+                "volumes": [
+                    7230000000,
+                    8121000000,
+                    9008000000,
+                    9895000000,
+                    10782000000,
+                    11000000000
+                    ],
+                "values": [
+                    298.96,
+                    300.37,
+                    301.71,
+                    302.92,
+                    303.97,
+                    305.00
+                    ],
+                "kind": "cubic"
+                },
+                "itaparica_area": {
+                    "type": "interpolatedvolume",
+                    "node": "itaparica_reservoir",
+                    "volumes": [7230000000, 8121000000, 9008000000, 9895000000, 10782000000, 11000000000],
+                    "values": [606899000, 660537000, 714031000, 765897000, 812882000, 900000000],
+                    "interp_kwargs": {  
+                        "kind": "linear"
+                      }
+                },
+                "itaparica_eto_profile": {
+                    "type": "monthlyprofile",
+                    "comment": "evaporation in mm",
+                    "values": [4.6, 3.58, 2.66, 3.45, 3.58, 3.32, 4.04, 5.19, 5.91, 6.41, 5.19, 4.99]
+                },
+                "itaparica_evaporation": {
+                    "type": "aggregated",
+                    "agg_func": "product",
+                    "parameters": [
+                        "itaparica_area",
+                        "itaparica_eto_profile",
+                        0.001
+                    ]
+                },
+            "itaparica_water_level": {
+                "type": "InterpolatedFlowParameter",
+                "node": "itaparica_downElevation",
+                "flows": [
+                    0,
+                    19440000,
+                    69120000,
+                    83808000,
+                    103680000,
+                    149040000,
+                    168480000,
+                    203040000,
+                    257040000,
+                    311040000,
+                    365040000,
+                    561600000,
+                    691200000,
+                    2592000000              
+                    ],
+                "values": [
+                    -251.50,
+                    -251.51,
+                    -251.52,
+                    -251.53,
+                    -251.54,
+                    -251.55,
+                    -251.56,
+                    -251.57,
+                    -251.58,
+                    -251.59,
+                    -251.60,
+                    -251.61,
+                    -251.62,
+                    -251.63
+                    ],
+                "kind": "linear"
+                },
+            "itaparica_new_level": {
+                "type": "aggregated",
+                "agg_func": "sum",
+                "parameters": [
+                    "itaparica_level",
+                    "itaparica_water_level"
+                    ]
+                },
+            "itaparica_discharge": {
+                "type": "indexedarray",
+                "index_parameter": "itaparica_control",
+                "params": [
+                    237900000,
+                    236908000,
+                    197424000,
+                    157939000,
+                    118454000,
+                    78969600,
+                    39844000,
+                    0        
+                    ]
+                },
+            "itaparica_control": {
+                "type": "controlcurveindex",
+                "storage_node": "itaparica_reservoir",
+                "control_curves": [
+                    "itaparica_control_curve"
+                    ]
+                },
+            "itaparica_control_curve": {
+                "type": "monthlyprofile",
+                "values": [
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80,
+                    0.80
+                    ]
+                },
+                "pafonso_level": {
+                    "type": "interpolatedvolume",
+                    "node": "pafonso_reservoir",
+                    "volumes": [
+                        1295000000,
+                        1300000000,
+                        1353000000,
+                        1355000000
+                        ],
+                    "values": [
+                        250.95,
+                        251.00,
+                        251.50,
+                        251.55
+                        ],
+                    "kind": "cubic"
+                    },
+                    "pafonso_area": {
+                        "type": "interpolatedvolume",
+                        "node": "pafonso_reservoir",
+                        "volumes": [1295000000, 1300000000, 1353000000, 1355000000],
+                        "values": [212500000, 213000000, 241000000, 241500000],
+                        "interp_kwargs": {  
+                            "kind": "linear"
+                          }
+                    },
+                    "pafonso_eto_profile": {
+                        "type": "monthlyprofile",
+                        "comment": "evaporation in mm",
+                        "values": [4.6, 3.58, 2.66, 3.45, 3.58, 3.32, 4.04, 5.19, 5.91, 6.41, 5.19, 4.99]
+                    },
+                    "pafonso_evaporation": {
+                        "type": "aggregated",
+                        "agg_func": "product",
+                        "parameters": [
+                            "pafonso_area",
+                            "pafonso_eto_profile",
+                            0.001
+                        ]
+                    },
+                "pafonso_water_level": {
+                    "type": "InterpolatedFlowParameter",
+                    "node": "pafonso_downElevation",
+                    "flows": [
+                        0,
+                        19440000,
+                        69120000,
+                        83808000,
+                        103680000,
+                        149040000,
+                        168480000,
+                        203040000,
+                        257040000,
+                        311040000,
+                        365040000,
+                        561600000,
+                        691200000,
+                        1728000000                       
+                        ],
+                    "values": [
+                        -129.04,
+                        -129.51,
+                        -130.00,
+                        -131.01,
+                        -131.46,
+                        -132.15,
+                        -132.90,
+                        -133.00,
+                        -133.10,
+                        -133.20,
+                        -133.30,
+                        -133.40,
+                        -133.50,
+                        -133.60
+                        ],
+                    "kind": "linear"
+                    },
+                "pafonso_new_level": {
+                    "type": "aggregated",
+                    "agg_func": "sum",
+                    "parameters": [
+                        "pafonso_level",
+                        "pafonso_water_level"
+                        ]
+                    },
+                "pafonso_discharge": {
+                    "type": "indexedarray",
+                    "index_parameter": "pafonso_control",
+                    "params": [
+                        362880000,
+                        309052800,
+                        293760000,
+                        235008000,
+                        176256000,
+                        117504000,
+                        78752000,
+                        0                       
+                        ]
+                    },
+                "pafonso_control": {
+                    "type": "controlcurveindex",
+                    "storage_node": "pafonso_reservoir",
+                    "control_curves": [
+                        "pafonso_control_curve"
+                        ]
+                    },
+                "pafonso_control_curve": {
+                    "type": "monthlyprofile",
+                    "values": [
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1
+                        ]
+                },
+
+                "xingo_level": {
+                    "type": "interpolatedvolume",
+                    "node": "xingo_reservoir",
+                    "volumes": [
+                        3695000000,
+                        3700000000,
+                        3800000000,
+                        3805000000
+                        ],
+                    "values": [
+                        137.45,
+                        137.50,
+                        138.00,
+                        138.05
+                        ],
+                    "kind": "cubic"
+                    },
+                    "xingo_area": {
+                        "type": "interpolatedvolume",
+                        "node": "xingo_reservoir",
+                        "volumes": [3695000000, 3700000000, 3800000000, 3805000000],
+                        "values": [57500000, 58000000, 60000000, 60005000],
+                        "interp_kwargs": {  
+                            "kind": "linear"
+                          }
+                    },
+                    "xingo_eto_profile": {
+                        "type": "monthlyprofile",
+                        "comment": "evaporation in mm",
+                        "values": [4.6, 3.58, 2.66, 3.45, 3.58, 3.32, 4.04, 5.19, 5.91, 6.41, 5.19, 4.99]
+                    },
+                    "xingo_evaporation": {
+                        "type": "aggregated",
+                        "agg_func": "product",
+                        "parameters": [
+                            "xingo_area",
+                            "xingo_eto_profile",
+                            0.001
+                        ]
+                    },
+                "xingo_water_level": {
+                    "type": "InterpolatedFlowParameter",
+                    "node": "xingo_downElevation",
+                    "flows": [
+                        0,
+                        19440000,
+                        69120000,
+                        83808000,
+                        103680000,
+                        149040000,
+                        168480000,
+                        203040000,
+                        257040000,
+                        311040000,
+                        365040000,
+                        561600000,
+                        691200000,
+                        2010000000               
+                        ],
+                    "values": [
+                        -19.5,
+                        -19.6,
+                        -19.7,
+                        -19.8,
+                        -19.9,
+                        -20.0,
+                        -20.1,
+                        -20.2,
+                        -20.3,
+                        -20.4,
+                        -20.5,
+                        -20.6,
+                        -20.7,
+                        -20.8
+                        ],
+                    "kind": "linear"
+                    },
+                "xingo_new_level": {
+                    "type": "aggregated",
+                    "agg_func": "sum",
+                    "parameters": [
+                        "xingo_level",
+                        "xingo_water_level"
+                        ]
+                    },
+                "xingo_discharge": {
+                    "type": "indexedarray",
+                    "index_parameter": "xingo_control",
+                    "params": [
+                        260000000,
+                        259200000,
+                        216000000,
+                        172800000,
+                        129600000,
+                        86400000,
+                        43200000,
+                        0              
+                        ]
+                    },
+                "xingo_control": {
+                    "type": "controlcurveindex",
+                    "storage_node": "xingo_reservoir",
+                    "control_curves": [
+                        "xingo_control_curve"
+                        ]
+                    },
+                "xingo_control_curve": {
+                    "type": "monthlyprofile",
+                    "values": [
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1
+                        ]
+                    }
+     
+    },
+    "recorders": {
+        "model_out": {
+        "comment": "flow record",
+        "type": "CSVRecorder",
+        "nodes": [
+            "Q1in",
+            "Q2in",
+            "Q3in",
+            "Q4in",
+            "Q5in",
+            "sobradinho_reservoir",
+            "sobradinho_eto",
+            "sobradinho_spill",
+            "sobradinho_spill_limit",
+            "sobradinho_turbine",
+            "sobradinho_downElevation",
+            "north_abstraction",
+            "north_link",
+            "north_Ereservoir",
+            "north_irrigation",
+            "north_urban",
+            "north_others",
+            "east_abstraction",
+            "east_link",
+            "east_Ereservoir",
+            "east_irrigation",
+            "east_urban",
+            "east_others",
+            "itaparica_reservoir",
+            "itaparica_eto",
+            "itaparica_turbine",
+            "itaparica_spill",
+            "itaparica_downElevation",
+            "pafonso_reservoir",
+            "pafonso_eto",
+            "pafonso_turbine",
+            "pafonso_spill",
+            "pafonso_downElevation",
+            "xingo_reservoir",
+            "xingo_eto",
+            "xingo_spill",
+            "xingo_turbine",
+            "xingo_downstream_balance",
+            "sobradinho_irrigation",
+            "upnorth_irrigation",
+            "upeast_irrigation",
+            "pafonso_irrigation",
+            "xingo_irrigation",
+            "xingo_irrigation_downstream",
+            "sobradinho_urban",
+            "upnorth_urban",
+            "upeast_urban",
+            "pafonso_urban",
+            "xingo_urban",
+            "xingo_urban_downstream",
+            "sobradinho_others",
+            "upnorth_others",
+            "upeast_others",
+            "pafonso_others",
+            "xingo_others",
+            "xingo_others_downstream",
+            "xingo_dreno"
+            ],
+        "url": "C:/workspace/pywr/Hydrossustainable_wAllocation/results/B_hydroecon_wtransfer1_mrf.csv"
+        },
+        "sobradinho_new_level_value": {
+            "type": "NumpyArrayParameterRecorder",
+            "parameter": "sobradinho_new_level"
+            },
+        "sobradinho_energy": {
+            "type": "HydroPowerRecorder",
+            "node": "sobradinho_turbine",
+            "water_elevation_parameter": "sobradinho_new_level",
+            "turbine_elevation": 0,
+            "efficiency": 0.90,
+            "flow_unit_conversion": 1,
+            "energy_unit_conversion": 1e-06
+            },
+        "sobradinho_flow_ener": {
+            "type": "numpyarraynoderecorder",
+            "node": "sobradinho_turbine"
+            },
+            "itaparica_flow_ener": {
+                "type": "numpyarraynoderecorder",
+                "node": "itaparica_turbine"
+                },
+                "pafonso_flow_ener": {
+                    "type": "numpyarraynoderecorder",
+                    "node": "pafonso_turbine"
+                    },
+                    "xingo_flow_ener": {
+                        "type": "numpyarraynoderecorder",
+                        "node": "xingo_turbine"
+                        },
+
+                        "downstream_turbine": {
+                            "type": "aggregated",
+                            "recorder_agg_func": "sum",
+                            "recorders": [
+                                    "sobradinho_flow_ener",
+                                    "itaparica_flow_ener",
+                                    "pafonso_flow_ener",
+                                    "xingo_flow_ener"
+                                ]
+                        },
+        "sobrad_storage": {
+            "type": "numpyarraystoragerecorder",
+            "node": "sobradinho_reservoir"
+            },
+            "itaparica_energy": {
+                "type": "HydroPowerRecorder",
+                "node": "itaparica_turbine",
+                "water_elevation_parameter": "itaparica_new_level",
+                "turbine_elevation": 0,
+                "efficiency": 0.80,
+                "flow_unit_conversion": 1,
+                "energy_unit_conversion": 1e-06
+                },
+                "pafonso_energy": {
+                    "type": "HydroPowerRecorder",
+                    "node": "pafonso_turbine",
+                    "water_elevation_parameter": "pafonso_new_level",
+                    "turbine_elevation": 0,
+                    "efficiency": 0.93,
+                    "flow_unit_conversion": 1,
+                    "energy_unit_conversion": 1e-06
+                    },
+                    "xingo_energy": {
+                        "type": "HydroPowerRecorder",
+                        "node": "xingo_turbine",
+                        "water_elevation_parameter": "xingo_new_level",
+                        "turbine_elevation": 0,
+                        "efficiency": 0.92,
+                        "flow_unit_conversion": 1,
+                        "energy_unit_conversion": 1e-06
+                        }
+        }
+    }
