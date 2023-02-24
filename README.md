@@ -1,4 +1,4 @@
-# Sustainable water allocation based on hydro-economic externalities
+# A Water Allocation Model for Multiple Uses Based on a Proposed Hydro-economic Method
 This model is based on PhD Thesis called (portuguese): Modelo de hidrossustentabilidade econômica como suporte à decisão na alocação de água em sistemas de recursos hídricos complexos.
 
 The proposed model rely on an optimization core using priorities and economic parameters to represent the costs in a objetive funcion to minimize the network flow cost in each time-step. The optimization core used the Pywr (1) python librarie to solve the priority-based and hydro-economic proposed model.
